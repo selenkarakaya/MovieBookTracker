@@ -53,11 +53,11 @@ To set up the Movies & Book Tracker on your local machine:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/MovieBookTracker_withReact-Auth.git
+   git clone https://github.com/yourusername/MovieBookTracker.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd MovieBookTracker_withReact-Auth
+   cd MovieBookTracker
    ```
 3. Install the required dependencies
    ```bash
