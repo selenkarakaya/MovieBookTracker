@@ -12,7 +12,7 @@ This project is my first application built with React and my first hands-on expe
 
 ## Demo 🔗
 
-🎥 [**Visit the Movies & Book Tracker!**](https://moviesbooktracker.netlify.app/)
+🎥 [**Visit the Movies & Book Tracker!**](https://moviebooktracker.netlify.app/)
 
 ## 🛠️ Usage
 - Register or Log In: Create an account or log in to start tracking your movies and books.📥
