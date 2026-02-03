@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import OAuth from "./shared/OAuth";
 import visibilityIcon from "../assets/visibilityIcon.svg";
 
 function SignIn() {
-  const auth = getAuth();
-
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const { email, password } = formData;
   const navigate = useNavigate();
 
@@ -25,8 +24,9 @@ function SignIn() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const auth = getAuth();
+      const auth = getAuth(); // sadece burada kullanıyoruz
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -34,7 +34,7 @@ function SignIn() {
       );
 
       if (userCredential.user) {
-        toast(` Hello ${auth.currentUser.displayName} 🌈🌸`, {
+        toast(` Hello ${auth.currentUser?.displayName ?? ""} 🌈🌸`, {
           position: "top-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -44,6 +44,7 @@ function SignIn() {
           progress: undefined,
           theme: "light",
         });
+
         navigate("/");
       }
     } catch (error) {
@@ -66,6 +67,7 @@ function SignIn() {
         <p className="fs-3 my-2 text-center font-mono">Welcome!</p>
         <p className="fs-6 text-center">Sign in & Enjoy it 💌 </p>
       </header>
+
       <form onSubmit={onSubmit} className="signForm form-container mx-auto">
         <div className="mb-2">
           <input
@@ -78,6 +80,7 @@ function SignIn() {
             data-testid="email-input"
           />
         </div>
+
         <div className="passwordInputDiv">
           <input
             type={showPassword ? "text" : "password"}
@@ -106,6 +109,7 @@ function SignIn() {
           </div>
         </div>
       </form>
+
       <div className="d-flex justify-content-between form-container mx-auto">
         <Link to="/SignUp" className="m-2">
           Sign Up Instead
