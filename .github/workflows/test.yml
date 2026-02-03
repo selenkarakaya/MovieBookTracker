@@ -1,36 +1,49 @@
-name: Run Tests
-
-# This workflow will run when you push to any branch or create a pull request
-on:
-  push:
-    branches:
-      - main   # Change this to the branch you want to trigger tests for
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  test:
-    runs-on: ubuntu-latest   # This specifies the environment the job will run on
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3   # Check out the code from the repository
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3  # Set up the Node.js environment
-      with:
-        node-version: '16'  # Specify the Node.js version to use (adjust as needed)
-
-    - name: Install dependencies
-      run: npm install   # Install all dependencies listed in package.json
-
-    - name: Run tests
-      run: npm test       # Run the test script defined in your package.json
-
-    - name: Upload test results (optional)
-      if: always()       # This ensures that test results are uploaded even if tests fail
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: path/to/test-reports # Adjust the path to where your test results are stored
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/.github/workflows/test.yml b/.github/workflows/test.yml
+index cafbec655c057b07a1b50a568a78a3a425f09d43..e22b594141327ed9ea8796c2ca420a65d7f963dd 100644
+--- a/.github/workflows/test.yml
++++ b/.github/workflows/test.yml
+@@ -1,36 +1,31 @@
+ name: Run Tests
+ 
+ # This workflow will run when you push to any branch or create a pull request
+ on:
+   push:
+     branches:
+       - main   # Change this to the branch you want to trigger tests for
++      - work
+   pull_request:
+     branches:
+       - main
++      - work
+ 
+ jobs:
+   test:
+     runs-on: ubuntu-latest   # This specifies the environment the job will run on
+ 
+     steps:
+     - name: Checkout repository
+       uses: actions/checkout@v3   # Check out the code from the repository
+ 
+     - name: Set up Node.js
+       uses: actions/setup-node@v3  # Set up the Node.js environment
+       with:
+-        node-version: '16'  # Specify the Node.js version to use (adjust as needed)
++        node-version: '18'  # Specify the Node.js version to use (adjust as needed)
+ 
+     - name: Install dependencies
+       run: npm install   # Install all dependencies listed in package.json
+ 
+     - name: Run tests
+-      run: npm test       # Run the test script defined in your package.json
+-
+-    - name: Upload test results (optional)
+-      if: always()       # This ensures that test results are uploaded even if tests fail
+-      uses: actions/upload-artifact@v3
+-      with:
+-        name: test-results
+-        path: path/to/test-reports # Adjust the path to where your test results are stored
++      run: CI=true npm test       # Run the test script defined in your package.json
+ 
+EOF
+)
