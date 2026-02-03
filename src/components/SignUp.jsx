@@ -64,7 +64,7 @@ function SignUp() {
         progress: undefined,
         theme: "light",
       });
-      navigate("/SignIn");
+      navigate("/");
     } catch (error) {
       toast.error("Something went wrong 😥", {
         position: "top-right",
